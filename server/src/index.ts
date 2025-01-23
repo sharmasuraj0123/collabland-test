@@ -94,14 +94,14 @@ app.listen(port, async () => {
     const ngrokUrl = ngrokService.getUrl()!;
     console.log("NGROK URL:", ngrokUrl);
 
-    const twitterInstance = TwitterService.getInstance();
-    await twitterInstance.start();
-    const me = await twitterInstance.me;
-    services.push(twitterInstance);
-    if (!me) {
-      throw new Error("Twitter account not found");
-    }
-    console.log("Twitter Bot Profile:", JSON.stringify(me, null, 2));
+    // const twitterInstance = TwitterService.getInstance();
+    // await twitterInstance.start();
+    // const me = await twitterInstance.me;
+    // services.push(twitterInstance);
+    // if (!me) {
+    //   throw new Error("Twitter account not found");
+    // }
+    // console.log("Twitter Bot Profile:", JSON.stringify(me, null, 2));
 
     // Initialize Telegram bot and set webhook
     await telegramService.start();

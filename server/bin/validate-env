@@ -73,59 +73,59 @@ async function main() {
   const envPath = path.join(__dirname, "..", "..", ".env");
 
   // Read .env.example
-  const exampleContent = fs.readFileSync(envExamplePath, "utf8");
-  const envContent = fs.existsSync(envPath)
-    ? fs.readFileSync(envPath, "utf8")
-    : "";
+  // const exampleContent = fs.readFileSync(envExamplePath, "utf8");
+  // const envContent = fs.existsSync(envPath)
+  //   ? fs.readFileSync(envPath, "utf8")
+  //   : "";
 
-  // Parse variables
-  const exampleVars = exampleContent
-    .split("\n")
-    .filter((line) => line && !line.startsWith("#"))
-    .map((line) => line.split("=")[0]);
+  // // Parse variables
+  // const exampleVars = exampleContent
+  //   .split("\n")
+  //   .filter((line) => line && !line.startsWith("#"))
+  //   .map((line) => line.split("=")[0]);
 
-  const existingVars = new Set(
-    envContent
-      .split("\n")
-      .filter((line) => line && !line.startsWith("#"))
-      .map((line) => line.split("=")[0])
-  );
+  // const existingVars = new Set(
+  //   envContent
+  //     .split("\n")
+  //     .filter((line) => line && !line.startsWith("#"))
+  //     .map((line) => line.split("=")[0])
+  // );
 
-  // Collect missing variables
-  let newEnvContent = envContent;
+  // // Collect missing variables
+  // let newEnvContent = envContent;
 
-  for (const varName of exampleVars) {
-    if (!existingVars.has(varName)) {
-      const hint = ENV_HINTS[varName] ?? "No hint available";
-      console.log(`HINT: ${hint}`);
-      const value = await question(`[server] Enter value for ${varName}: `);
-      newEnvContent += `\n${varName}=${value ?? ""}`;
-    }
-  }
-  // Default config
-  const defaultConfig = {
-    GAIANET_MODEL: "llama",
-    GAIANET_SERVER_URL: "https://llama8b.gaia.domains/v1",
-    GAIANET_EMBEDDING_MODEL: "nomic-embed",
-    USE_GAIANET_EMBEDDING: "TRUE",
-    ELIZA_CHARACTER_PATH: "character.json",
-    TOKEN_DETAILS_PATH: "token_metadata.example.jsonc",
-  };
+  // for (const varName of exampleVars) {
+  //   if (!existingVars.has(varName)) {
+  //     const hint = ENV_HINTS[varName] ?? "No hint available";
+  //     console.log(`HINT: ${hint}`);
+  //     const value = await question(`[server] Enter value for ${varName}: `);
+  //     newEnvContent += `\n${varName}=${value ?? ""}`;
+  //   }
+  // }
+  // // Default config
+  // const defaultConfig = {
+  //   GAIANET_MODEL: "llama",
+  //   GAIANET_SERVER_URL: "https://llama8b.gaia.domains/v1",
+  //   GAIANET_EMBEDDING_MODEL: "nomic-embed",
+  //   USE_GAIANET_EMBEDDING: "TRUE",
+  //   ELIZA_CHARACTER_PATH: "character.json",
+  //   TOKEN_DETAILS_PATH: "token_metadata.example.jsonc",
+  // };
 
-  // Inject defaults for empty vars
-  const lines = newEnvContent.split("\n");
-  const updatedLines = lines.map((line) => {
-    const [key, value] = line.split("=");
-    if (key && defaultConfig[key] && (!value || value === "")) {
-      return `${key}=${defaultConfig[key]}`;
-    }
-    return line;
-  });
-  newEnvContent = updatedLines.join("\n");
+  // // Inject defaults for empty vars
+  // const lines = newEnvContent.split("\n");
+  // const updatedLines = lines.map((line) => {
+  //   const [key, value] = line.split("=");
+  //   if (key && defaultConfig[key] && (!value || value === "")) {
+  //     return `${key}=${defaultConfig[key]}`;
+  //   }
+  //   return line;
+  // });
+  // newEnvContent = updatedLines.join("\n");
 
-  // Save to .env
-  fs.writeFileSync(envPath, newEnvContent.trim() + "\n");
-  rl.close();
+  // // Save to .env
+  // fs.writeFileSync(envPath, newEnvContent.trim() + "\n");
+  // rl.close();
 }
 
 main().catch(console.error);

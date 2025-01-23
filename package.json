@@ -8,7 +8,7 @@
     "dev": "node scripts/dev",
     "tunnel": "node scripts/tunnel",
     "dev:client": "pnpm --filter client run dev",
-    "dev:server": "pnpm --filter server run dev",
+    "dev:server": "pnpm --filter server run start",
     "dev:lit-actions": "pnpm --filter lit-actions run watch",
     "build": "pnpm -r run build",
     "start": "pnpm -r run start",
